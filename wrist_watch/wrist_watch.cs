@@ -6,8 +6,8 @@ namespace wrist_watch
 {
     public class wrist_watch : Mod
     {
-        private float m_hoursDegrees = 30f;
-        private float m_minutesDegrees = 6f;
+        private float m_hourDegrees = 30f;
+        private float m_minuteDegrees = 6f;
 
         private GameObject m_WRISTWATCH;
         private GameObject m_needleHours;
@@ -90,8 +90,8 @@ namespace wrist_watch
             }
 
             // rotate watch needle
-            m_needleMinutes.transform.localEulerAngles = new Vector3(0f, m_fsmMinutes.Value * m_minutesDegrees);
-            m_needleHours.transform.localEulerAngles = new Vector3(0f, (m_hours * m_hoursDegrees) + (m_fsmMinutes.Value * m_minutesDegrees / m_hoursDegrees ));
+            m_needleMinutes.transform.localEulerAngles = new Vector3(0f, m_fsmMinutes.Value * m_minuteDegrees);
+            m_needleHours.transform.localEulerAngles = new Vector3(0f, (m_hours * m_hourDegrees) + (m_fsmMinutes.Value * m_minuteDegrees / m_hourDegrees * 2));
         }
 
         private void Init()
@@ -113,9 +113,7 @@ namespace wrist_watch
 
             m_hours = m_fsmHours.Value;
             m_hours = m_hours > 12 ? m_hours - 12 : m_hours;
-            m_needleHours.transform.localEulerAngles = new Vector3(0f, m_hours * m_hoursDegrees);
-
-            ModConsole.Print(m_hours);
+            m_needleHours.transform.localEulerAngles = new Vector3(0f, m_hours * m_hourDegrees);
         }
     }
 }
