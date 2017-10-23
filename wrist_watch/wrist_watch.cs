@@ -164,12 +164,14 @@ namespace wrist_watch
             _hourCount = 0;
             m_minutes = m_rawMinutes.Value / 2;
             m_hours = m_fsmHours.Value >= 12 ? m_fsmHours.Value - 12 : m_fsmHours.Value;
+
+            _WRISTWATCH.transform.localEulerAngles = new Vector3(0f, 270f);
         }
 
 #if DEBUG
         public override void OnGUI()
         {
-            GUI.Label(new Rect(0, 20, 500, 500), "minute: " + m_minutes);
+            GUI.Label(new Rect(0, 20, 500, 500), "minutes: " + m_minutes);
             GUI.Label(new Rect(0, 40, 500, 500), "hour: " + m_hours);
             GUI.Label(new Rect(0, 60, 500, 500), "hour: " + m_fsmHours.Value);
         }
