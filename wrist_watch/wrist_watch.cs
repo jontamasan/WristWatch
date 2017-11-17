@@ -11,14 +11,11 @@ namespace wrist_watch
         public override string ID => "Wristwatch";
         public override string Name => "Wristwatch";
         public override string Author => "PigoenBB";
-        public override string Version => "0.2";
+        public override string Version => "0.21";
 
         public override bool UseAssetsFolder => true;
 
         Keybind _wristwatchKey = new Keybind("WristwatchKey", "Wristwatch", KeyCode.G);
-
-        private const float HOUR_DEGREES = 30f;
-        private const float MINUTE_DEGREES = 6f;
 
         // object
         private GameObject _WRISTWATCH;
@@ -35,8 +32,8 @@ namespace wrist_watch
         private bool _isInit = true;
 
         // fov
-        private Camera _cameraComponent;
         private float _fov;
+        private Camera _cameraComponent;
 
         // Called when mod is loading
         public override void OnLoad()
@@ -64,7 +61,7 @@ namespace wrist_watch
 
             if (_isInit)
             {
-                if (!Init()) return;
+                 if (!Init()) return;
                 _isInit = false;
             }
 
@@ -110,10 +107,11 @@ namespace wrist_watch
         // Initialize and when player slept
         private bool Init()
         {
-            var FPSCamera = GameObject.Find("FPSCamera");
-            if (!FPSCamera) return false;
+            var player = GameObject.Find("PLAYER");
+            if (!player) return false;
+            var FPSCamera = GameObject.Find("PLAYER/Pivot/Camera/FPSCamera/FPSCamera");
             _WRISTWATCH.transform.parent = FPSCamera.transform;
-            _WRISTWATCH.layer = GameObject.Find("PLAYER").layer;
+            _WRISTWATCH.layer = player.layer;
             _WRISTWATCH.transform.localPosition = new Vector3(-0.05f, -0.5f, 0.5f);
             _WRISTWATCH.transform.localEulerAngles = new Vector3(0f, 270f);
             _cameraComponent = FPSCamera.GetComponent<Camera>();
