@@ -11,7 +11,7 @@ namespace wrist_watch
         public override string ID => "Wristwatch";
         public override string Name => "Wristwatch";
         public override string Author => "PigoenBB";
-        public override string Version => "0.21";
+        public override string Version => "0.3";
 
         public override bool UseAssetsFolder => true;
 
@@ -61,7 +61,7 @@ namespace wrist_watch
 
             if (_isInit)
             {
-                 if (!Init()) return;
+                 Init();
                 _isInit = false;
             }
 
@@ -105,25 +105,21 @@ namespace wrist_watch
         }
 
         // Initialize and when player slept
-        private bool Init()
+        private void Init()
         {
             var player = GameObject.Find("PLAYER");
-            if (!player) return false;
             var FPSCamera = GameObject.Find("PLAYER/Pivot/Camera/FPSCamera/FPSCamera");
             _WRISTWATCH.transform.parent = FPSCamera.transform;
-            _WRISTWATCH.layer = player.layer;
             _WRISTWATCH.transform.localPosition = new Vector3(-0.05f, -0.5f, 0.5f);
             _WRISTWATCH.transform.localEulerAngles = new Vector3(0f, 270f);
+            _WRISTWATCH.layer = player.layer;
             _cameraComponent = FPSCamera.GetComponent<Camera>();
             _fov = _cameraComponent.fieldOfView;
 
             _isPlayerSleeps = FsmVariables.GlobalVariables.FindFsmBool("PlayerSleeps");
             _isFsmHandLeft = FsmVariables.GlobalVariables.FindFsmBool("PlayerHandLeft");
-
-            _suomiNeedleHour = GameObject.Find("YARD/Building/SuomiClock/Clock/hour/NeedleHour");
-            _suomiNeedleMinute = GameObject.Find("YARD/Building/SuomiClock/Clock/minute/NeedleMinute");
-
-            return true;
+            _suomiNeedleHour = GameObject.Find("SuomiClock/Clock/hour/NeedleHour");
+            _suomiNeedleMinute = GameObject.Find("SuomiClock/Clock/minute/NeedleMinute");
         }
     }
 }
